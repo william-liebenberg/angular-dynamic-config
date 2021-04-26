@@ -1,4 +1,8 @@
-# AngularDynamicConfig
+# Angular Dynamic Config
+
+This sample shows how to load application configuration from a `config.json` file at run-time. This allows you to build the application once, and deploy multiple times to different environments that require individual configurations (api endpoints, flags, etc.).
+
+Once you have run `ng build --prod` you can keep the `dist` folder output as an artifact in your DevOps pipeline. When releasing you can replace the `config.json` file with whatever values are appropriate for that environment.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.10.
 
@@ -6,22 +10,33 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+## Testing your production build
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+You can test your production built application by installing `http-server`
 
-## Running end-to-end tests
+To install `http-server`
+``` 
+npm i -g http-server
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Once installed, you can `cd` into the `dist/angular-dynamic-config` folder and run `http-server` from the command line.
 
-## Further help
+Example output:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+Starting up http-server, serving ./
+Available on:
+  http://192.168.0.25:8080
+  http://127.0.0.1:8080
+Hit CTRL-C to stop the server
+```
+
+Now you can navigate to your app using one of the displayed URLs.
+
+To test your runtime config, make changes to the `assets/config.json` file and refresh the page (you may have to force refresh) to see the config changes. 
+
+DONE!

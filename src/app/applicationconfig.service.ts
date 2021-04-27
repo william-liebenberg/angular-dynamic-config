@@ -25,8 +25,8 @@ export class ApplicationConfigService {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         }),
-        responseType: 'json' as 'json'
-      };
+        responseType: 'json'
+      } as const;
 
       // load JSON via HttpClient
       this.http.get<AppConfig>(this.configURL, httpOptions)

@@ -6,10 +6,8 @@ import { AppComponent } from './app.component';
 import { ApplicationConfigService } from './applicationconfig.service';
 import { ShowConfigComponent } from './show-config/show-config.component';
 
-const configInitializer = (appConfig: ApplicationConfigService) => {
-  return () => {
-    return appConfig.load();
-  };
+export function configInitializer(appConfig: ApplicationConfigService) {
+  return () => appConfig.load();
 };
 
 @NgModule({

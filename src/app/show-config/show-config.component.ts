@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AppConfig } from '../app-config';
 import { ApplicationConfigService } from '../applicationconfig.service';
 
@@ -9,9 +11,12 @@ import { ApplicationConfigService } from '../applicationconfig.service';
 })
 export class ShowConfigComponent implements OnInit {
   constructor(public configService: ApplicationConfigService) {
-    this.applicationConfig = configService.config;
+    this.appConfig$ = configService.getConfig();
   }
 
-  applicationConfig: AppConfig;
-  ngOnInit(): void {}
+  appConfig$: Observable<AppConfig>;
+
+  ngOnInit(): void {
+
+  }
 }

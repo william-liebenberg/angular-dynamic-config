@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfig } from './app-config';
+import { promise } from 'selenium-webdriver';
 
 @Injectable({
   providedIn: 'root',
@@ -8,36 +9,35 @@ import { AppConfig } from './app-config';
 export class ApplicationConfigService {
   private configURL = '/assets/config.json';
 
-  config: AppConfig;
+  // assign default values - unless you want to see a lot of 'undefined' errors in your log console.
+  config: AppConfig = {
+    backendUrl: '',
+    themeCssUrl: ''
+  };
 
-  constructor(private http: HttpClient) {
-    // assign default values
-    this.config = {
-      backendUrl: '',
-      themeCssUrl: '',
-    };
-  }
+  isLoaded!: boolean;
+
+  constructor(private http: HttpClient) { }
 
   load() {
-    try {
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }),
-        responseType: 'json'
-      } as const;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }),
+      responseType: 'json'
+    } as const;
 
-      // load JSON via HttpClient
-      this.http.get<AppConfig>(this.configURL, httpOptions)
-        .toPromise()
-        .then(response => {
-          this.config.backendUrl = response.backendUrl;
-          this.config.themeCssUrl = response.themeCssUrl;
-        });
-
-    } catch {
-      alert('Please check that the config.json file is present!');
-    }
+    // load JSON via HttpClient
+    return this.http.get<AppConfig>(this.configURL, httpOptions)
+      .toPromise()
+      .then(response => {
+        this.config = {...response};
+        this.isLoaded = true;
+      })
+      .catch(err => {
+        // alert('Please check that the config.json file is present!');
+        this.isLoaded = false;
+      });
   }
 }

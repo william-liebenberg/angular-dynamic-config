@@ -1,5 +1,10 @@
 <h2>Application Configuration</h2>
-<div>
+
+<div *ngIf="!configService.isLoaded">
+  <p>Application Configuration is missing/invalid!</p>
+</div>
+
+<div *ngIf="configService.isLoaded">
   <p>BackendUrl: {{ this.applicationConfig.backendUrl }}</p>
   <p>Theme CSS Url: {{ this.applicationConfig.themeCssUrl }}</p>
 </div>

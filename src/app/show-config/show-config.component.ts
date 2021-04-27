@@ -8,7 +8,7 @@ import { ApplicationConfigService } from '../applicationconfig.service';
   styleUrls: ['./show-config.component.scss'],
 })
 export class ShowConfigComponent implements OnInit {
-  constructor(configService: ApplicationConfigService) {
+  constructor(public configService: ApplicationConfigService) {
     this.applicationConfig = configService.config;
   }
 

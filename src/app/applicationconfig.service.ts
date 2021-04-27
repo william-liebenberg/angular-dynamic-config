@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfig } from './app-config';
-import { promise } from 'selenium-webdriver';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +35,6 @@ export class ApplicationConfigService {
         this.isLoaded = true;
       })
       .catch(err => {
-        // alert('Please check that the config.json file is present!');
         this.isLoaded = false;
       });
   }
